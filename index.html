@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جناح الساري - إدارة الحاويات</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  margin: 0;
+  color: #1e293b;
+}
+header {
+  background: #12304a;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+}
+button {
+  background: #126b80;
+  color: white;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+main { padding: 20px; max-width: 1100px; margin: auto; }
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+h2 { color: #12304a; }
+</style>
+</head>
+<body>
+<header>
+  <h1>جناح الساري</h1>
+  <p>نظام إدارة الحاويات والمصاريف والإيرادات</p>
+</header>
+<nav>
+  <button onclick="showPage('home')">الرئيسية</button>
+  <button onclick="showPage('containers')">الحاويات</button>
+  <button onclick="showPage('expenses')">المصاريف</button>
+  <button onclick="showPage('sales')">المبيعات والإيرادات</button>
+  <button onclick="showPage('reports')">التقارير</button>
+</nav>
+<main>
+  <section id="home" class="card">
+    <h2>لوحة التحكم</h2>
+    <p>مرحباً بك في نظام إدارة الحاويات.</p>
+    <p>من هنا تستطيع متابعة الكلف والمصاريف والمبيعات والأرباح.</p>
+  </section>
+  <section id="containers" class="card" hidden>
+    <h2>إدارة الحاويات</h2>
+    <p>سيتم إضافة نموذج تسجيل الحاويات هنا.</p>
+  </section>
+  <section id="expenses" class="card" hidden>
+    <h2>مصاريف الحاويات</h2>
+    <p>سيتم إضافة تسجيل المصاريف هنا.</p>
+  </section>
+  <section id="sales" class="card" hidden>
+    <h2>المبيعات والإيرادات</h2>
+    <p>سيتم إضافة تسجيل المبيعات هنا.</p>
+  </section>
+  <section id="reports" class="card" hidden>
+    <h2>التقارير</h2>
+    <p>سيتم عرض تقارير الكلفة والأرباح هنا.</p>
+  </section>
+</main>
+<script>
+function showPage(page) {
+  document.querySelectorAll('main section').forEach(section => {
+    section.hidden = section.id !== page;
+  });
+}
+</script>
+</body>
+</html>
