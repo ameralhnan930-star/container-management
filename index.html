@@ -1,89 +1,138 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>جناح الساري - إدارة الحاويات</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
-  margin: 0;
-  color: #1e293b;
-}
-header {
-  background: #12304a;
-  color: white;
-  padding: 25px;
-  text-align: center;
-}
-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 15px;
-  background: white;
-}
-button {
-  background: #126b80;
-  color: white;
-  border: 0;
-  padding: 12px 18px;
-  border-radius: 7px;
-  cursor: pointer;
-}
-main { padding: 20px; max-width: 1100px; margin: auto; }
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-h2 { color: #12304a; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#1e293b}
+header{background:#12304a;color:white;text-align:center;padding:22px}
+main{max-width:1100px;margin:auto;padding:18px}
+.card{background:white;padding:20px;border-radius:12px;margin:15px 0;box-shadow:0 2px 8px #0001}
+h2{color:#12304a}
+input{width:100%;padding:13px;margin:8px 0;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
+button{background:#126b80;color:white;border:0;padding:12px 18px;border-radius:7px;margin:4px;cursor:pointer}
+nav{background:white;padding:12px;display:flex;flex-wrap:wrap;justify-content:center}
+.notice{padding:12px;background:#e0f2fe;border-radius:7px;margin-top:10px}
+.error{background:#fee2e2;color:#991b1b}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
+
 <header>
-  <h1>جناح الساري</h1>
-  <p>نظام إدارة الحاويات والمصاريف والإيرادات</p>
+<h1>جناح الساري</h1>
+<p>نظام إدارة الحاويات والمصاريف والإيرادات</p>
 </header>
+
+<section id="login" class="card" style="max-width:450px;margin:25px auto">
+<h2>تسجيل الدخول</h2>
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="password" type="password" placeholder="كلمة المرور">
+<button id="loginBtn">دخول</button>
+<button id="registerBtn">إنشاء حساب جديد</button>
+<div id="message" class="notice" hidden></div>
+</section>
+
+<div id="system" hidden>
 <nav>
-  <button onclick="showPage('home')">الرئيسية</button>
-  <button onclick="showPage('containers')">الحاويات</button>
-  <button onclick="showPage('expenses')">المصاريف</button>
-  <button onclick="showPage('sales')">المبيعات والإيرادات</button>
-  <button onclick="showPage('reports')">التقارير</button>
+<button data-page="home">الرئيسية</button>
+<button data-page="containers">الحاويات</button>
+<button data-page="expenses">المصاريف</button>
+<button data-page="sales">المبيعات والإيرادات</button>
+<button data-page="reports">التقارير</button>
+<button id="logoutBtn">خروج</button>
 </nav>
+
 <main>
-  <section id="home" class="card">
-    <h2>لوحة التحكم</h2>
-    <p>مرحباً بك في نظام إدارة الحاويات.</p>
-    <p>من هنا تستطيع متابعة الكلف والمصاريف والمبيعات والأرباح.</p>
-  </section>
-  <section id="containers" class="card" hidden>
-    <h2>إدارة الحاويات</h2>
-    <p>سيتم إضافة نموذج تسجيل الحاويات هنا.</p>
-  </section>
-  <section id="expenses" class="card" hidden>
-    <h2>مصاريف الحاويات</h2>
-    <p>سيتم إضافة تسجيل المصاريف هنا.</p>
-  </section>
-  <section id="sales" class="card" hidden>
-    <h2>المبيعات والإيرادات</h2>
-    <p>سيتم إضافة تسجيل المبيعات هنا.</p>
-  </section>
-  <section id="reports" class="card" hidden>
-    <h2>التقارير</h2>
-    <p>سيتم عرض تقارير الكلفة والأرباح هنا.</p>
-  </section>
+<section id="home" class="card page">
+<h2>لوحة التحكم</h2>
+<p>أهلاً بك في نظام جناح الساري.</p>
+<p>إدارة الحاويات وحساب الكلف والمبيعات والأرباح.</p>
+</section>
+
+<section id="containers" class="card page" hidden>
+<h2>إدارة الحاويات</h2>
+<p>سيتم إضافة نموذج الحاويات وحفظ البيانات هنا.</p>
+</section>
+
+<section id="expenses" class="card page" hidden>
+<h2>مصاريف الحاويات</h2>
+<p>سيتم ربط كل مصروف برقم الحاوية.</p>
+</section>
+
+<section id="sales" class="card page" hidden>
+<h2>المبيعات والإيرادات</h2>
+<p>سيتم تسجيل مبيعات الحاويات وإيراداتها.</p>
+</section>
+
+<section id="reports" class="card page" hidden>
+<h2>التقارير</h2>
+<p>سيتم حساب الكلفة والربح والتأخير تلقائياً.</p>
+</section>
 </main>
-<script>
-function showPage(page) {
-  document.querySelectorAll('main section').forEach(section => {
-    section.hidden = section.id !== page;
-  });
+</div>
+
+<script type="module">
+import { supabase } from "./supabase.js";
+
+const loginBox=document.getElementById("login");
+const system=document.getElementById("system");
+const message=document.getElementById("message");
+
+function msg(text,error=false){
+ message.textContent=text;
+ message.hidden=false;
+ message.classList.toggle("error",error);
 }
+
+function showSystem(session){
+ loginBox.hidden=!!session;
+ system.hidden=!session;
+}
+
+document.getElementById("loginBtn").onclick=async()=>{
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ const {error}=await supabase.auth.signInWithPassword({email,password});
+ if(error)msg(error.message,true);
+};
+
+document.getElementById("registerBtn").onclick=async()=>{
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ if(!email||password.length<6){
+  msg("أدخل البريد الإلكتروني وكلمة مرور من 6 أحرف على الأقل",true);
+  return;
+ }
+ const {data,error}=await supabase.auth.signUp({email,password});
+ if(error){msg(error.message,true);return;}
+ if(data.session)msg("تم إنشاء الحساب بنجاح");
+ else msg("تم إنشاء الحساب. افحص بريدك الإلكتروني لتأكيد الحساب ثم سجّل الدخول");
+};
+
+document.getElementById("logoutBtn").onclick=async()=>{
+ const {error}=await supabase.auth.signOut();
+ if(error)msg(error.message,true);
+};
+
+document.querySelectorAll("[data-page]").forEach(button=>{
+ button.onclick=()=>{
+  document.querySelectorAll(".page").forEach(page=>{
+   page.hidden=page.id!==button.dataset.page;
+  });
+ };
+});
+
+const {data:{session}}=await supabase.auth.getSession();
+showSystem(session);
+
+supabase.auth.onAuthStateChange((_event,session)=>{
+ showSystem(session);
+});
 </script>
+
 </body>
 </html>
