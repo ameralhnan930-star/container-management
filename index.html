@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,15 +7,20 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial;background:#f1f5f9;color:#1e293b}
-header{background:#12304a;color:white;text-align:center;padding:22px}
-main{max-width:1100px;margin:auto;padding:18px}
-.card{background:white;padding:20px;border-radius:12px;margin:15px 0;box-shadow:0 2px 8px #0001}
+header{background:#12304a;color:white;text-align:center;padding:20px}
+main{max-width:1100px;margin:auto;padding:15px}
+.card{background:white;padding:18px;border-radius:12px;margin:15px 0;box-shadow:0 2px 8px #0001}
 h2{color:#12304a}
-input{width:100%;padding:13px;margin:8px 0;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
+input,select{width:100%;padding:12px;margin:7px 0;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
 button{background:#126b80;color:white;border:0;padding:12px 18px;border-radius:7px;margin:4px;cursor:pointer}
-nav{background:white;padding:12px;display:flex;flex-wrap:wrap;justify-content:center}
+nav{background:white;padding:10px;display:flex;flex-wrap:wrap;justify-content:center}
+table{width:100%;border-collapse:collapse;min-width:750px}
+th,td{border:1px solid #cbd5e1;padding:10px;text-align:center}
+th{background:#12304a;color:white}
+.table-wrap{overflow-x:auto}
 .notice{padding:12px;background:#e0f2fe;border-radius:7px;margin-top:10px}
 .error{background:#fee2e2;color:#991b1b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -49,28 +53,86 @@ nav{background:white;padding:12px;display:flex;flex-wrap:wrap;justify-content:ce
 <main>
 <section id="home" class="card page">
 <h2>لوحة التحكم</h2>
-<p>أهلاً بك في نظام جناح الساري.</p>
-<p>إدارة الحاويات وحساب الكلف والمبيعات والأرباح.</p>
+<p>أهلاً بك في نظام جناح الساري لإدارة الحاويات.</p>
+<p>يمكنك إضافة الحاويات ومتابعة بياناتها من قسم الحاويات.</p>
 </section>
 
 <section id="containers" class="card page" hidden>
-<h2>إدارة الحاويات</h2>
-<p>سيتم إضافة نموذج الحاويات وحفظ البيانات هنا.</p>
+<h2>إضافة حاوية جديدة</h2>
+
+<form id="containerForm">
+<div class="grid">
+<div>
+<label>رقم الحاوية</label>
+<input id="containerNumber" required placeholder="أدخل رقم الحاوية">
+</div>
+<div>
+<label>حجم الحاوية</label>
+<select id="containerSize" required>
+<option value="">اختر الحجم</option>
+<option value="20 قدم">20 قدم</option>
+<option value="40 قدم">40 قدم</option>
+<option value="40 قدم HQ">40 قدم HQ</option>
+</select>
+</div>
+<div>
+<label>خط الشحن</label>
+<input id="shippingLine" placeholder="اسم خط الشحن">
+</div>
+<div>
+<label>اسم التاجر</label>
+<input id="merchantName" placeholder="اسم التاجر">
+</div>
+<div>
+<label>تاريخ رسو الباخرة</label>
+<input id="arrivalDate" type="date" required>
+</div>
+<div>
+<label>تاريخ استلام الحاوية</label>
+<input id="receivedDate" type="date">
+</div>
+</div>
+
+<div class="notice" id="delayPreview">أيام التأخير: --</div>
+<button type="submit">حفظ الحاوية</button>
+</form>
+
+<div id="containerMessage" class="notice" hidden></div>
+
+<h2>الحاويات المسجلة</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>رقم الحاوية</th>
+<th>الحجم</th>
+<th>خط الشحن</th>
+<th>التاجر</th>
+<th>تاريخ الرسو</th>
+<th>تاريخ الاستلام</th>
+<th>أيام التأخير</th>
+</tr>
+</thead>
+<tbody id="containersTable">
+<tr><td colspan="7">جاري تحميل البيانات...</td></tr>
+</tbody>
+</table>
+</div>
 </section>
 
 <section id="expenses" class="card page" hidden>
 <h2>مصاريف الحاويات</h2>
-<p>سيتم ربط كل مصروف برقم الحاوية.</p>
+<p>سيتم إضافة تسجيل المصاريف وربطها برقم الحاوية في المرحلة القادمة.</p>
 </section>
 
 <section id="sales" class="card page" hidden>
 <h2>المبيعات والإيرادات</h2>
-<p>سيتم تسجيل مبيعات الحاويات وإيراداتها.</p>
+<p>سيتم إضافة تسجيل المبيعات والإيرادات في المرحلة القادمة.</p>
 </section>
 
 <section id="reports" class="card page" hidden>
 <h2>التقارير</h2>
-<p>سيتم حساب الكلفة والربح والتأخير تلقائياً.</p>
+<p>سيتم إضافة تقارير الكلفة والأرباح في المرحلة القادمة.</p>
 </section>
 </main>
 </div>
@@ -78,44 +140,46 @@ nav{background:white;padding:12px;display:flex;flex-wrap:wrap;justify-content:ce
 <script type="module">
 import { supabase } from "./supabase.js";
 
-const loginBox=document.getElementById("login");
-const system=document.getElementById("system");
-const message=document.getElementById("message");
+const $ = id => document.getElementById(id);
+const loginBox = $("login");
+const system = $("system");
+const message = $("message");
 
-function msg(text,error=false){
- message.textContent=text;
- message.hidden=false;
- message.classList.toggle("error",error);
+function showMessage(element,text,error=false){
+ element.textContent=text;
+ element.hidden=false;
+ element.classList.toggle("error",error);
 }
 
 function showSystem(session){
  loginBox.hidden=!!session;
  system.hidden=!session;
+ if(session) loadContainers();
 }
 
-document.getElementById("loginBtn").onclick=async()=>{
- const email=document.getElementById("email").value.trim();
- const password=document.getElementById("password").value;
+$("loginBtn").onclick=async()=>{
+ const email=$("email").value.trim();
+ const password=$("password").value;
  const {error}=await supabase.auth.signInWithPassword({email,password});
- if(error)msg(error.message,true);
+ if(error) showMessage(message,error.message,true);
 };
 
-document.getElementById("registerBtn").onclick=async()=>{
- const email=document.getElementById("email").value.trim();
- const password=document.getElementById("password").value;
- if(!email||password.length<6){
-  msg("أدخل البريد الإلكتروني وكلمة مرور من 6 أحرف على الأقل",true);
+$("registerBtn").onclick=async()=>{
+ const email=$("email").value.trim();
+ const password=$("password").value;
+ if(!email || password.length<6){
+  showMessage(message,"أدخل البريد وكلمة مرور من 6 أحرف على الأقل",true);
   return;
  }
  const {data,error}=await supabase.auth.signUp({email,password});
- if(error){msg(error.message,true);return;}
- if(data.session)msg("تم إنشاء الحساب بنجاح");
- else msg("تم إنشاء الحساب. افحص بريدك الإلكتروني لتأكيد الحساب ثم سجّل الدخول");
+ if(error) showMessage(message,error.message,true);
+ else if(data.session) showMessage(message,"تم إنشاء الحساب بنجاح");
+ else showMessage(message,"تم إنشاء الحساب. إذا طُلب منك تأكيد البريد، أكّده ثم سجّل الدخول");
 };
 
-document.getElementById("logoutBtn").onclick=async()=>{
+$("logoutBtn").onclick=async()=>{
  const {error}=await supabase.auth.signOut();
- if(error)msg(error.message,true);
+ if(error) showMessage(message,error.message,true);
 };
 
 document.querySelectorAll("[data-page]").forEach(button=>{
@@ -126,6 +190,109 @@ document.querySelectorAll("[data-page]").forEach(button=>{
  };
 });
 
+function calculateDelay(){
+ const arrival=$("arrivalDate").value;
+ const received=$("receivedDate").value;
+ if(!arrival){
+  $("delayPreview").textContent="أيام التأخير: --";
+  return;
+ }
+ const start=new Date(arrival+"T00:00:00");
+ const end=received?new Date(received+"T00:00:00"):new Date();
+ const days=Math.max(0,Math.floor((end-start)/86400000));
+ $("delayPreview").textContent="أيام التأخير: "+days+" يوم";
+}
+
+$("arrivalDate").addEventListener("change",calculateDelay);
+$("receivedDate").addEventListener("change",calculateDelay);
+
+function getDelay(arrival,received){
+ const start=new Date(arrival+"T00:00:00");
+ const end=received?new Date(received+"T00:00:00"):new Date();
+ return Math.max(0,Math.floor((end-start)/86400000));
+}
+
+async function loadContainers(){
+ const table=$("containersTable");
+ table.innerHTML="<tr><td colspan='7'>جاري تحميل البيانات...</td></tr>";
+
+ const {data,error}=await supabase
+  .from("containers")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+ if(error){
+  table.innerHTML="<tr><td colspan='7'>تعذر تحميل البيانات: "+error.message+"</td></tr>";
+  return;
+ }
+
+ if(!data.length){
+  table.innerHTML="<tr><td colspan='7'>لا توجد حاويات مسجلة حالياً</td></tr>";
+  return;
+ }
+
+ table.innerHTML="";
+ data.forEach(item=>{
+  const row=document.createElement("tr");
+  const values=[
+   item.container_number,
+   item.size,
+   item.shipping_line,
+   item.merchant_name,
+   item.arrival_date,
+   item.received_date||"لم يتم الاستلام",
+   getDelay(item.arrival_date,item.received_date)
+  ];
+
+  values.forEach(value=>{
+   const cell=document.createElement("td");
+   cell.textContent=value??"";
+   row.appendChild(cell);
+  });
+  table.appendChild(row);
+ });
+}
+
+$("containerForm").onsubmit=async(event)=>{
+ event.preventDefault();
+
+ const arrival=$("arrivalDate").value;
+ const received=$("receivedDate").value;
+
+ if(received && received<arrival){
+  showMessage($("containerMessage"),"تاريخ الاستلام لا يمكن أن يكون قبل تاريخ الرسو",true);
+  return;
+ }
+
+ const record={
+  container_number:$("containerNumber").value.trim(),
+  size:$("containerSize").value,
+  shipping_line:$("shippingLine").value.trim(),
+  merchant_name:$("merchantName").value.trim(),
+  arrival_date:arrival,
+  received_date:received||null
+ };
+
+ const saveButton=$("containerForm").querySelector("button[type='submit']");
+ saveButton.disabled=true;
+ saveButton.textContent="جاري الحفظ...";
+
+ const {error}=await supabase.from("containers").insert([record]);
+
+ saveButton.disabled=false;
+ saveButton.textContent="حفظ الحاوية";
+
+ if(error){
+  showMessage($("containerMessage"),"لم يتم الحفظ: "+error.message,true);
+  return;
+ }
+
+ showMessage($("containerMessage"),"تم حفظ الحاوية بنجاح");
+ $("containerForm").reset();
+ calculateDelay();
+ await loadContainers();
+};
+
 const {data:{session}}=await supabase.auth.getSession();
 showSystem(session);
 
@@ -133,6 +300,5 @@ supabase.auth.onAuthStateChange((_event,session)=>{
  showSystem(session);
 });
 </script>
-
 </body>
 </html>
